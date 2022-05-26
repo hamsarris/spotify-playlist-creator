@@ -2,10 +2,26 @@
 
 <head>
     <title>Yo</title>
+    <script src="/files/spotify-web-api.js"></script>
 </head>
 
-<body>
+<body onload="pageload()">
     <script>
+        function pageload() {
+            base = 'https://accounts.spotify.com/authorize?';
+            clientid = 'b64e0ee8a7f94570a2472c7e0e634d35';
+            scope = 'user-read-currently-playing';
+            redirect = 'http://127.0.0.1:5500/index.html';
+
+            link = base;
+            link += 'client_id=' + clientid + '&';
+            link += 'scope=' + scope + '&';
+            link += 'redirect_uri=' + redirect + '&';
+            link += 'response_type=token&show_dialog=true'
+
+            document.getElementById('authorise').href = link;
+        }
+
         function getURLQuery(u) {
             var q = window.location.hash.substring(1)
             var v = q.split('&')
@@ -17,8 +33,20 @@
             }
             return false
         }
+
+        function testAPI() {
+            verification_code = getURLQuery('access_token');
+            var spotifyApi = new SpotifyWebApi();
+            spotifyApi.setAccessToken(verification_code);
+
+            spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
+                if (err) console.error(err);
+                else console.log('Artist albums', data);
+            });
+        }
     </script>
-    <a href="https://accounts.spotify.com/authorize?client_id=b64e0ee8a7f94570a2472c7e0e634d35&response_type=token&scope=user-read-currently-playing&show_dialog=true&redirect_uri=https://hamsarris.github.io/spotify-playlist-creator">Link Spotify</a>
+    <a href="#" id="authorise">Link Spotify</a>
+    <button onclick="testAPI()">Click Me</button>
 </body>
 
 </html>
