@@ -1,11 +1,24 @@
 <html>
-    <head>
-        <title>Yo</title>
 
-        <link rel="stylesheet" href="files/style.css">     
-    </head>
+<head>
+    <title>Yo</title>
+</head>
 
-    <body>
-        <a href="https://accounts.spotify.com/authorize?client_id=b64e0ee8a7f94570a2472c7e0e634d35&response_type=token&scope=user-read-currently-playing&redirect_uri=https://hamsarris.github.io/spotify-playlist-creator/">Link Spotify</a>
-    </body>
+<body>
+    <script>
+        function getURLQuery(u) {
+            var q = window.location.hash.substring(1)
+            var v = q.split('&')
+            for (var i = 0; i < v.length; i++) {
+                var pair = v[i].split("=")
+                if (pair[0] == u) {
+                    return pair[1]
+                }
+            }
+            return false
+        }
+    </script>
+    <a href="https://accounts.spotify.com/authorize?client_id=b64e0ee8a7f94570a2472c7e0e634d35&response_type=token&scope=user-read-currently-playing&show_dialog=true&redirect_uri=https://hamsarris.github.io/spotify-playlist-creator">Link Spotify</a>
+</body>
+
 </html>
