@@ -7,6 +7,8 @@
 
 <body onload="pageload()">
     <script>
+        var api_data;
+
         function pageload() {
             base = 'https://accounts.spotify.com/authorize?';
             clientid = 'b64e0ee8a7f94570a2472c7e0e634d35';
@@ -35,14 +37,37 @@
         }
 
         function testAPI() {
+            api_data = "";
+
             verification_code = getURLQuery('access_token');
             var spotifyApi = new SpotifyWebApi();
             spotifyApi.setAccessToken(verification_code);
 
-            spotifyApi.getArtistAlbums('3fMbdgg4jU18AjLCKBhRSm', function(err, data) {
+            spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
                 if (err) console.error(err);
-                else console.log('Artist albums', data);
+                else api_data = data;
+                printToScreen();
             });
+        }
+
+        function printToScreen() {
+            for (let album = 0; album < api_data.items.length; album++) {
+                var all_artists = "";
+
+                for (let artist = 0; artist < api_data.items[album].artists.length; artist++) {
+                    all_artists += api_data.items[album].artists[artist].name + " ";
+                }
+                const para = document.createElement("p");
+                const textNode = document.createTextNode(api_data.items[album].name + " - " + all_artists);
+                const breaks = document.createElement("br");
+                const album_cover = document.createElement("img");
+                album_cover.src = api_data.items[album].images[2].url;
+                para.appendChild(textNode);
+                para.appendChild(breaks)
+                para.appendChild(album_cover);
+                document.body.appendChild(para);
+            }
+
         }
     </script>
     <a href="#" id="authorise">Link Spotify</a>
