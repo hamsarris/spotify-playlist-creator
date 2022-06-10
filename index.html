@@ -47,7 +47,7 @@
             var spotifyApi = new SpotifyWebApi();
             spotifyApi.setAccessToken(verification_code);
 
-            spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
+            spotifyApi.searchTracks(document.getElementById('searchbox').value, function(err, data) {
                 if (err) console.error(err);
                 else api_data = data;
                 printToScreen();
@@ -55,17 +55,17 @@
         }
 
         function printToScreen() {
-            for (let album = 0; album < api_data.items.length; album++) {
+            for (let track = 0; track < api_data.tracks.items.length; track++) {
                 var all_artists = "";
 
-                for (let artist = 0; artist < api_data.items[album].artists.length; artist++) {
-                    all_artists += api_data.items[album].artists[artist].name + " ";
+                for (let artist = 0; artist < api_data.tracks.items[track].artists.length; artist++) {
+                    all_artists += api_data.tracks.items[track].artists[artist].name + " ";
                 }
                 const para = document.createElement("p");
-                const textNode = document.createTextNode(api_data.items[album].name + " - " + all_artists);
+                const textNode = document.createTextNode(api_data.tracks.items[track].name + " - " + all_artists);
                 const breaks = document.createElement("br");
                 const album_cover = document.createElement("img");
-                album_cover.src = api_data.items[album].images[2].url;
+                album_cover.src = api_data.tracks.items[track].album.images[2].url;
                 para.appendChild(textNode);
                 para.appendChild(breaks)
                 para.appendChild(album_cover);
@@ -75,6 +75,7 @@
         }
     </script>
     <a href="#" id="authorise">Link Spotify</a>
+    <input id="searchbox" type="search">
     <button onclick="testAPI()">Click Me</button>
 </body>
 
