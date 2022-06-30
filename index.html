@@ -13,8 +13,23 @@
     <script>
         var api_data;
         var spotifyApi;
+        var genresdata;
+        var selectedGenres = "";
+
+        function getURLQuery(u) {
+            var q = window.location.hash.substring(1)
+            var v = q.split('&')
+            for (var i = 0; i < v.length; i++) {
+                var pair = v[i].split("=")
+                if (pair[0] == u) {
+                    return pair[1]
+                };
+            };
+            return false
+        }
 
         function pageload() {
+            //creates authorisation link url
             base = 'https://accounts.spotify.com/authorize?';
             clientid = 'b64e0ee8a7f94570a2472c7e0e634d35';
             scope = 'user-read-currently-playing';
@@ -29,29 +44,46 @@
             document.getElementById('authorise').href = link;
         }
 
-        function getURLQuery(u) {
-            var q = window.location.hash.substring(1)
-            var v = q.split('&')
-            for (var i = 0; i < v.length; i++) {
-                var pair = v[i].split("=")
-                if (pair[0] == u) {
-                    return pair[1]
-                }
-            }
-            return false
-        }
-
-        function testAPI() {
-            api_data = "";
-
+        //creates spotify api instance if working access token is avaliable
+        state = getURLQuery('access_token');
+        if (state != false) {
             verification_code = getURLQuery('access_token');
             var spotifyApi = new SpotifyWebApi();
             spotifyApi.setAccessToken(verification_code);
+            verified();
+        }
 
+        function verified() {
+            //code to run once spotify api access is granted
+            spotifyApi.getAvailableGenreSeeds(function(err, data) {
+                if (err) console.error(err);
+                else genresdata = data;
+                importGenres();
+            });
+        }
+
+        function importGenres() {
+            //setup genre selection
+            for (genre = 0; genre < genresdata.genres.length; genre++) {
+                const genre_option = document.createElement("option");
+                genre_option.value = genresdata.genres[genre];
+                document.getElementById("genres").appendChild(genre_option);
+            };
+        }
+
+        function addGenre() {
+            const item = document.createElement("li");
+            item.innerHTML = document.getElementById("genre_selection").value;
+            document.getElementById("genrelist").appendChild(item);
+            document.getElementById("genre_selection").value = "";
+        }
+
+        function testAPI() {
             spotifyApi.getRecommendations({
                 seed_tracks: '0UtnpKaReKUg2GquaSxCyD',
+                seed_genres: document.getElementById("genrelist").innerText.replace(/\n/g, ','),
                 min_energy: 0.5,
-                max_speechiness: 0.3
+                max_speechiness: 0.1
             }, function(err, data) {
                 if (err) console.error(err);
                 else api_data = data;
@@ -69,18 +101,28 @@
                 const para = document.createElement("p");
                 const textNode = document.createTextNode(api_data.tracks[track].name + " - " + all_artists);
                 const breaks = document.createElement("br");
+                const audio = document.createElement("audio");
+                audio.controls = true;
+                audio.src = api_data.tracks[track].preview_url;
+                const breaks2 = document.createElement("br");
                 const album_cover = document.createElement("img");
                 album_cover.src = api_data.tracks[track].album.images[2].url;
                 para.appendChild(textNode);
-                para.appendChild(breaks)
+                para.appendChild(breaks);
+                para.appendChild(audio);
+                para.appendChild(breaks2);
                 para.appendChild(album_cover);
                 document.body.appendChild(para);
-            }
-
+            };
         }
     </script>
     <a href="#" id="authorise">Link Spotify</a>
-    <button onclick="testAPI()">Click Me</button>
+    <button onclick="testAPI()">Click Me</button><br>
+
+    <input list="genres" id="genre_selection"><button onclick="addGenre()">Add Genre</button>
+    <ul id="genrelist"></ul>
+    <datalist id="genres">
+    </datalist>
 </body>
 
 </html>
