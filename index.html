@@ -80,7 +80,7 @@
 
         function testAPI() {
             spotifyApi.getRecommendations({
-                seed_tracks: '0UtnpKaReKUg2GquaSxCyD',
+                seed_tracks: '2I2VmhT5SKXbdJpQb0qA89',
                 seed_genres: document.getElementById("genrelist").innerText.replace(/\n/g, ','),
                 min_energy: 0.5,
                 max_speechiness: 0.1
@@ -116,13 +116,22 @@
             };
         }
     </script>
-    <a href="#" id="authorise">Link Spotify</a>
-    <button onclick="testAPI()">Click Me</button><br>
+
+    <p>
+        <a href="#" id="authorise">Link Spotify</a>
+        <button onclick="testAPI()">Click Me</button>
+    </p>
+
+    <input list="tracks" id="track_selection"><button onclick="addToList('track_selection')">Add Track</button>
+    <ul id="tracklist"></ul>
+    <datalist id="tracks">
+    </datalist>
 
     <input list="genres" id="genre_selection"><button onclick="addGenre()">Add Genre</button>
     <ul id="genrelist"></ul>
     <datalist id="genres">
     </datalist>
+
 </body>
 
 </html>
