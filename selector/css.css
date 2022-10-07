@@ -2,6 +2,7 @@
 html {
     font-family: 'Permanent Marker', cursive;
     font-size: larger;
+    background-color: #f1f1f1;
 }
 
 .answers {
@@ -43,3 +44,18 @@ html {
 .footer {
     grid-area: footer;
 }
+
+#mydiv {
+    position: absolute;
+    z-index: 9;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+  }
+  
+  #mydivheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    font-size: xx-large;
+  }
