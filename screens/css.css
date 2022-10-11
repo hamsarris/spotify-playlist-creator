@@ -1,0 +1,22 @@
+.screen{
+  position:absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+}
+
+#screen1{
+  background-color: whitesmoke;
+  display: block;
+}
+
+#screen2{
+  background-color: red;
+  display: none;
+}
+
+#screen3{
+  background-color: blue;
+  display: none;
+}
