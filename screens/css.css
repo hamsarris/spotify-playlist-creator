@@ -1,3 +1,12 @@
+.overlay{
+  position:absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  z-index: 999;
+}
+
 .screen{
   position:absolute;
   top:0px;
@@ -12,7 +21,6 @@
 }
 
 #screen2{
-  background-color: red;
   display: none;
 }
 
