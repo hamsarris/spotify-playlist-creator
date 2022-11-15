@@ -2,67 +2,107 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="css.css">
-  <script src="js.js"></script>
-  <link rel="icon" type="image/x-icon" href="icon/forwardarrow.svg">
+    <link rel="stylesheet" href="css.css">
+    <script src="loadscript.js"></script>
+    <link rel="icon" type="image/x-icon" href="icon/icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 
-<header>
-  <img src="icon/icon.svg">
-</header>
+<body>
+    <header>
+        <span>TEST</span>
+        <span>yooo</span>
+    </header>
 
+    <div id="content">
+        <input type="file" id="thefile" />
+        <canvas id="canvas"></canvas>
+        <audio id="audio" controls></audio>
+    </div>
 
-<body onload="set()">
+    <div class="screen" id="screen1">
+        <h1>Connect Spotify to Continue</h1>
+        <button class="loign" id="spotifylogin">Login to Spotify</button>
+        <p style="font-size: 0.5em; opacity: 0.0;">Spotify Apply</p>
+    </div>
 
-  <div class="overlay">
-    <img width=80px src="icon/forwardarrow.svg" onclick="next()"></img>
-  </div>
-
-  <div class="screen" id="screen1">
-    <p class="title">ahhhhhhh</p>
-    <div class='vertical-align'>
-      <div class='btns'>
-        <label>
-          <input checked='' name='button-group' type='radio' value='item'>
-          <span class='btn first'>hfiuwehfuiwh</span>
-          </input>
-        </label>
-        <label>
+    <div class="screen" id="screen2">
+        <p class="title">reeeeeeeeeee</p>
+        <div class='vertical-align'>
+            <div class='btns'>
+                <label>
           <input name='button-group' type='radio' value='other-item'>
           <span class='btn'>Sometimes</span>
           </input>
         </label>
-        <label>
+                <label>
           <input name='button-group' type='radio' value='other-item'>
           <span class='btn'>Often</span>
           </input>
         </label>
-        <label>
+                <label>
           <input name='button-group' type='radio' value='third'>
           <span class='btn'>Usually</span>
           </input>
         </label>
-        <label>
+                <label>
           <input name='button-group' type='radio' value='third'>
           <span class='btn last'>Always</span>
           </input>
         </label>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="screen" id="screen2">
-    <img src="WhatsApp Image 2022-05-20 at 3.05.36 PM.jpeg" width="50%">00000000000
-  </div>
+    <div class="screen" id="screen3">
+        <img src="--WhatsApp Image 2022-05-20 at 3.05.36 PM.jpeg" width="50%">00000000000
+    </div>
 
-  <div class="screen" id="screen3">
-  </div>
+    <div class="screen" id="screen4">
+        <h2>Organise</h2>
+        <table class="drop-targets">
+            <tr>
+                <td style="background-color: #ff7f7e; width: 10%;">S</td>
+                <td class="box"></td>
+            </tr>
+            <tr>
+                <td style="background-color: #ffbf7f;">A</td>
+                <td class="box"><img class="item" id="item1" title="test \r rigjrigj" data-uri="690560" src="https://upload.wikimedia.org/wikipedia/commons/0/02/Tier_list_fruits.jpg" style="height:60px;" draggable="true"></td>
+                <!-- document.getElementById('item1').dataset.uri -->
+            </tr>
+            <tr>
+                <td style="background-color: #feff7f;">B</td>
+                <td class="box"><img class="item" id="item2" src="https://upload.wikimedia.org/wikipedia/commons/0/02/Tier_list_fruits.jpg" style="height:60px;" draggable="true"></td>
+            </tr>
+            <tr>
+                <td style="background-color: #7eff80;">C</td>
+                <td class="box">
+                    <img class="item" id="item3" src="https://upload.wikimedia.org/wikipedia/commons/0/02/Tier_list_fruits.jpg" style="height:60px;" draggable="true">
+                    <img class="item" id="item4" src="https://pbs.twimg.com/profile_images/587388242745552896/-pQXJSg-_400x400.jpg" style="height:60px;" draggable="true">
+                    <img class="item" id="item5" src="https://upload.wikimedia.org/wikipedia/commons/0/02/Tier_list_fruits.jpg" style="height:60px;" draggable="true">
+                    <img class="item" id="item6" src="https://imageio.forbes.com/specials-images/imageserve/5ed6636cdd5d320006caf841/0x0.jpg?format=jpg&width=1200" style="height:60px;" draggable="true">
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #7fffff;">D</td>
+                <td class="box"></td>
+            </tr>
+            <tr>
+                <td style="background-color: #807fff;">E</td>
+                <td class="box"></td>
+            </tr>
+            <tr>
+                <td style="background-color: #ff7ffe;">F</td>
+                <td class="box"></td>
+            </tr>
+        </table>
+    </div>
 
+    <progress value="90" max="100"></progress>
 
+    <footer onclick="next()">
+        Sam Harris Computing NEA
+    </footer>
 </body>
-
-<footer>
-  Samuel William Harris
-</footer>
 
 </html>
