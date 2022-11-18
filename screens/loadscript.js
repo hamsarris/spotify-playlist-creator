@@ -1,13 +1,20 @@
 window.onload = function() {
     set();
+    pageload();
     VIS();
     tier();
+    document.getElementById('blank').style.opacity = 0;
+
+    document.querySelector('#blank').addEventListener('transitionend', () => {
+        document.getElementById('blank').style.display = 'none';
+    });
 };
 
 /* ---------------- SITE LOAD JAVASCRIPT ---------------- */
 ids = []
 
 function set() {
+    console.log('yo')
     for (let i = 0; i < document.getElementsByClassName("screen").length; i++) {
         ids.push(document.getElementsByClassName("screen")[i].id)
 
@@ -31,18 +38,30 @@ document.onkeypress = function(eventKeyName) {
     if (eventKeyName.keyCode == 13) { next() }
 };
 
-/* draggable element */
-const item = document.getElementsByClassName("item");
+/* ---------------- SPOTIFY API JAVASCRIPT ---------------- */
+var link
 
-for (let i = 0; i < item.length; i++) {
-    item[i].addEventListener('dragstart', dragStart);
+function pageload() {
+    base = 'https://accounts.spotify.com/authorize?';
+    clientid = 'b64e0ee8a7f94570a2472c7e0e634d35';
+    scope = 'user-read-currently-playing';
+    redirect = 'http://127.0.0.1:5500/index.html';
+
+    link = base + 'client_id=' + clientid + '&scope=' + scope + '&redirect_uri=' + redirect + '&response_type=token&show_dialog=true';
+
+    document.getElementById('authorise').href = link;
 }
 
-function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.id);
-    setTimeout(() => {
-        e.target.classList.add('hide');
-    }, 0);
+function getURLQuery(u) {
+    var q = window.location.hash.substring(1)
+    var v = q.split('&')
+    for (var i = 0; i < v.length; i++) {
+        var pair = v[i].split("=")
+        if (pair[0] == u) {
+            return pair[1]
+        }
+    }
+    return false
 }
 
 /* ---------------- TIER LIST JAVASCRIPT ---------------- */
