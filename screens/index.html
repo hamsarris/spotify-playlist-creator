@@ -4,18 +4,43 @@
 <head>
     <link rel="stylesheet" href="css.css">
     <script src="loadscript.js"></script>
+    <script src="spotify-web-api.js"></script>
     <link rel="icon" type="image/x-icon" href="icon/icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 
 <body>
+    <script>
+        var spotifyApi;
+        var returned_data;
+        testAPI()
+        function testAPI() {
+            verification_code = getURLQuery('access_token');
+            var spotifyApi = new SpotifyWebApi();
+            spotifyApi.setAccessToken(verification_code);
 
+            //spotifyApi.getMe(true=true, function(err, data) {
+              //  if (err) console.error(err);
+              //  else returned_data = data; document.getElementById('example').innerText = returned_data.tracks.items[0].id;
+            //});
+
+            spotifyApi.getMe()
+    .then(function (data) {
+        currentuser = data; document.getElementById('usr').innerText = data.display_name; document.getElementById('usr-img').src = data.images[0].url;
+    }, function (err) {
+        console.log('!! authentication of user failed', err);
+    });
+        }
+    </script>
     <header>
-        <span>LEFT</span>
-        <span>RIGTH</span>
+        <span id="head-left" style="display: flex; align-items: center;">LEFT</span>
+        <span id="head-right" style="display: flex; align-items: center;"><span id="usr"></span><img id="usr-img"></span>
     </header>
 
-    <div id="blank"><span class="loader"></span></div>
+    <div id="blank">
+        <span class="loader"></span>
+        <p style="color: whitesmoke; font-family: consolas;">Happiness can be found in the depths of chocolate pudding.</p>
+    </div>
 
     <div id="content">
         <input type="file" id="thefile" />
@@ -28,7 +53,7 @@
         <a id="authorise" href="#">
             <button class="loign" id="spotifylogin">Login to Spotify</button>
         </a>
-        <p style="font-size: 0.5em; opacity: 0.0;">Spotify Apply</p>
+        <p style="font-size: 0.5em; opacity: 0.5">Spotify ToS Apply</p>
     </div>
 
     <div class="screen" id="screen2">

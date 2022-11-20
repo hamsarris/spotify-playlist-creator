@@ -1,6 +1,11 @@
+//import { SpotifyWebApi } from './spotify-web-api.js';
+var authState
+var authKey
+
 //runs all scripts needed for page load
 window.onload = function() {
-    set();
+    setScreens();
+    authSpotify();
     pageload();
     tier();
 
@@ -14,7 +19,7 @@ window.onload = function() {
 /* ---------------- SITE LOAD JAVASCRIPT ---------------- */
 ids = []
 
-function set() {
+function setScreens() {
     //checks html to see how many scrollable screens there are
     for (let i = 0; i < document.getElementsByClassName("screen").length; i++) {
         ids.push(document.getElementsByClassName("screen")[i].id)
@@ -42,6 +47,13 @@ document.onkeypress = function(eventKeyName) {
     if (eventKeyName.keyCode == 13) { next() }
 };
 
+/* ---------------- PRE-AUTH SPOTIFY JAVASCRIPT ---------------- */
+function authSpotify(){
+    const params = new URLSearchParams(window.location.search)
+    authState = params.get('auth')
+    if (authState == true) {return [true, getURLQuery('access_token')]} else {return [false]}
+}
+
 /* ---------------- SPOTIFY API JAVASCRIPT ---------------- */
 var link
 
@@ -50,7 +62,7 @@ function pageload() {
     base = 'https://accounts.spotify.com/authorize?';
     clientid = 'b64e0ee8a7f94570a2472c7e0e634d35';
     scope = 'user-read-currently-playing';
-    redirect = 'http://127.0.0.1:5500/screens/index.html';
+    redirect = 'http://127.0.0.1:5500/screens/index.html?auth=true';
 
     //builds link
     link = base + 'client_id=' + clientid + '&scope=' + scope + '&redirect_uri=' + redirect + '&response_type=token&show_dialog=true';
