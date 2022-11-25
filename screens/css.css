@@ -69,10 +69,11 @@ html {
 }
 
 #usr-img {
+    border: 2px solid rgb(50, 50, 50);
     border-radius: 50%;
     margin-left: 10px;
     background-image: url('content/images/usr.jpg');
-    background-size: cover;
+    object-fit: cover;
     height: 1.5em;
     width: 1.5em;
 }

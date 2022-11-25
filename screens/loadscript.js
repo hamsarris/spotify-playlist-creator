@@ -8,6 +8,7 @@ window.onload = function() {
     authSpotify();
     pageload();
     tier();
+    VIS();
 
     //when scripts are finished loading screen fades away
     document.getElementById('blank').style.opacity = 0;
@@ -142,7 +143,7 @@ function tier() {
 }
 
 /* ---------------- MUSIC VIS JAVASCRIPT ---------------- */
-function VIS() {
+function VIS(file_url) {
     //grabs user uploaded audio file, this will be changed later to automatically use one from spotify api
     var file = document.getElementById("thefile");
     var audio = document.getElementById("audio");
