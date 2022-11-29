@@ -144,9 +144,9 @@ function tier() {
 /* ---------------- MUSIC VIS JAVASCRIPT ---------------- */
 function VIS(file_url) {
     //grabs user uploaded audio file, this will be changed later to automatically use one from spotify api
-    document.getElementById('audio').src = file_url;
     var audio = document.getElementById("audio");
 
+    audio.src = file_url;
     audio.load();
     audio.play();
     var context = new AudioContext();
