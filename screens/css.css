@@ -342,7 +342,7 @@ footer {
 
 audio {
     position: fixed;
-    display: none;
+    display: block;
     z-index: 999;
     left: 10px;
     bottom: 100px;

@@ -8,7 +8,6 @@ window.onload = function() {
     authSpotify();
     pageload();
     tier();
-    VIS();
 
     //when scripts are finished loading screen fades away
     document.getElementById('blank').style.opacity = 0;
@@ -145,64 +144,60 @@ function tier() {
 /* ---------------- MUSIC VIS JAVASCRIPT ---------------- */
 function VIS(file_url) {
     //grabs user uploaded audio file, this will be changed later to automatically use one from spotify api
-    var file = document.getElementById("thefile");
+    document.getElementById('audio').src = file_url;
     var audio = document.getElementById("audio");
 
-    file.onchange = function() {
-        var files = this.files;
-        audio.src = URL.createObjectURL(files[0]);
-        audio.load();
-        audio.play();
-        var context = new AudioContext();
-        var src = context.createMediaElementSource(audio);
-        var analyser = context.createAnalyser();
+    audio.load();
+    audio.play();
+    var context = new AudioContext();
+    var src = context.createMediaElementSource(audio);
+    var analyser = context.createAnalyser();
 
-        //finds the canvas in the html and creates variables of the canvas size
-        var canvas = document.getElementById("canvas");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        var ctx = canvas.getContext("2d");
+    //finds the canvas in the html and creates variables of the canvas size
+    var canvas = document.getElementById("canvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var ctx = canvas.getContext("2d");
 
-        src.connect(analyser);
-        analyser.connect(context.destination);
+    src.connect(analyser);
+    analyser.connect(context.destination);
 
-        analyser.fftSize = 256;
+    analyser.fftSize = 256;
 
-        var bufferLength = analyser.frequencyBinCount / 4;
-        console.log(bufferLength);
+    var bufferLength = analyser.frequencyBinCount / 4;
+    console.log(bufferLength);
 
-        var dataArray = new Uint8Array(bufferLength);
+    var dataArray = new Uint8Array(bufferLength);
 
-        var WIDTH = canvas.width;
-        var HEIGHT = canvas.height;
+    var WIDTH = canvas.width;
+    var HEIGHT = canvas.height;
 
-        var barWidth = (WIDTH / bufferLength) * 2.5;
-        var barHeight;
-        var x = 0;
+    var barWidth = (WIDTH / bufferLength) * 2.5;
+    var barHeight;
+    var x = 0;
 
-        function renderFrame() {
-            //clears screen
-            ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    function renderFrame() {
+        //clears screen
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-            requestAnimationFrame(renderFrame);
-            x = 0;
-            analyser.getByteFrequencyData(dataArray);
+        requestAnimationFrame(renderFrame);
+        x = 0;
+        analyser.getByteFrequencyData(dataArray);
 
-            //fills/defines screen background
-            ctx.fillStyle = 'rgba(0, 0, 0, 0)';
-            ctx.fillRect(0, 0, WIDTH, HEIGHT);
+        //fills/defines screen background
+        ctx.fillStyle = 'rgba(0, 0, 0, 0)';
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-            for (var i = 0; i < bufferLength; i++) {
-                //draws each bar
-                barHeight = dataArray[i];
-                ctx.fillStyle = "rgba(200,200,200,0.2)";
-                ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-                //next draw location
-                x += barWidth + 10;
-            }
+        for (var i = 0; i < bufferLength; i++) {
+            //draws each bar
+            barHeight = dataArray[i];
+            ctx.fillStyle = "rgba(200,200,200,0.2)";
+            ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+            //next draw location
+            x += barWidth + 10;
         }
+    }
 
-        audio.play();
-        renderFrame();
-    };
+    audio.play();
+    renderFrame();
 };
