@@ -61,7 +61,7 @@ function pageload() {
     //creates spotify authorisation link
     base = 'https://accounts.spotify.com/authorize?';
     clientid = 'b64e0ee8a7f94570a2472c7e0e634d35';
-    scope = 'user-read-currently-playing';
+    scope = 'user-read-currently-playing user-top-read';
     redirect = 'http://127.0.0.1:5500/screens/index.html?auth=true';
 
     //builds link
